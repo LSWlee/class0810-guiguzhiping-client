@@ -1,6 +1,7 @@
 import React ,{Component} from 'react';
 import {NavBar, List,InputItem,WingBlank,WhiteSpace,Radio,Button} from 'antd-mobile';
 import Logo from '../logo'
+import {reqRegister} from '../../api';
 const Item = List.Item;
 
 class Register extends Component{
@@ -19,10 +20,11 @@ class Register extends Component{
   tologin = () => {
     this.props.history.replace('/login');
   };
-  sendDate = () => {
+  sendDate =async () => {
     const {laoban,username,passward,passwardagain} = this.state;
     //发送请求
     console.log(laoban,username,passward,passwardagain);
+    const user = await reqRegister({username ,passward,type:laoban ? 'laoban':'dashen'})
   }
   render () {
     const {laoban} = this.state;
