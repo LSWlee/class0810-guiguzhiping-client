@@ -1,16 +1,17 @@
 {
-  "name": "hello-react",
+  "name": "hello-react1",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "antd-mobile": "^2.2.6",
     "axios": "^0.18.0",
+    "js-cookie": "^2.2.0",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-redux": "^5.1.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.1",
-    "redux": "^4.0.1",
+    "redux": "3",
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
@@ -34,5 +35,6 @@
     "less-loader": "^4.1.0",
     "react-app-rewired": "^1.6.2",
     "redux-devtools-extension": "^2.13.7"
-  }
+  },
+  "proxy": "http://localhost:4000"
 }

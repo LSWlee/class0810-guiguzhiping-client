@@ -1,6 +1,3 @@
-/**
- * Created by lsw on 2018/12/3 0003.
- */
 const {injectBabelPlugin, getLoader} = require('react-app-rewired');
 
 const fileLoaderMatcher = function (rule) {
@@ -14,7 +11,7 @@ module.exports = function override(config, env) {
     //style: 'css',
     style: true, // use less for customized theme
   }], config);
-
+  
   // customize theme
   config.module.rules[2].oneOf.unshift(
     {
@@ -55,7 +52,7 @@ module.exports = function override(config, env) {
       ]
     }
   );
-
+  
   // css-modules
   config.module.rules[2].oneOf.unshift(
     {
@@ -94,10 +91,10 @@ module.exports = function override(config, env) {
       ]
     }
   );
-
+  
   // file-loader exclude
   let l = getLoader(config.module.rules, fileLoaderMatcher);
   l.exclude.push(/\.less$/);
-
+  
   return config;
 };
