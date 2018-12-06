@@ -5,7 +5,8 @@ import {withRouter} from 'react-router-dom';
 import './index.less';
 class Footer extends Component {
   static propTypes = {
-    NavList:PropTypes.array.isRequired
+    NavList:PropTypes.array.isRequired,
+    type:PropTypes.string.isRequired
   }
   redirectTo = path => {
     this.props.history.push(path)
@@ -13,7 +14,7 @@ class Footer extends Component {
   render () {
     const Item = TabBar.Item;
     //过滤到老板或者大神，type通过redux来获取
-    const type = 'laoban';
+    const type = this.props.type;
     const filter = type === 'laoban' ? '/dashen' : '/laoban';
     const currNavList = this.props.NavList.filter(item => {
       if(filter === item.path){

@@ -3,7 +3,7 @@
  */
 import {combineReducers} from 'redux';
 
-import {AUTH_SUCCESS, AUTH_ERROR} from './action-types';
+import {AUTH_SUCCESS, AUTH_ERROR,UPDATE_USERINFO,RESET_USERINFO,UPDATE_USERLIST,RESET_USERLIST} from './action-types';
 
 //初始化状态的值
 const initUserState = {
@@ -25,14 +25,22 @@ function user(previousState = initUserState, action) {
       return {...action.data, redirectTo: getRedirectPath(action.data.type, action.data.header)};
     case AUTH_ERROR :
       return {...initUserState, ...action.data};
+    case UPDATE_USERINFO:
+      return {...action.data, redirectTo: getRedirectPath(action.data.type, action.data.header)};
+    case RESET_USERINFO:
+      return {...initUserState, ...action.data};
     default :
       return previousState;
   }
 }
 
-const initYyyState = {};
-function yyy(previousState = initYyyState, action) {
+const initUserListState = [];
+function userList(previousState = initUserListState, action) {
   switch (action.type) {
+    case UPDATE_USERLIST:
+      return action.data;
+    case RESET_USERLIST:
+      return [];
     default :
       return previousState;
   }
@@ -57,5 +65,6 @@ function getRedirectPath(type, header) {
 //默认暴露合并后的reducers函数
 // {xxx: function xxx() {}, yyy: function yyy() {}}
 export default combineReducers({
-  user
+  user,
+  userList
 })

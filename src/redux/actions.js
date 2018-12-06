@@ -6,11 +6,17 @@
     2. 异步action creator
       返回值是函数 dispatch => {xxx}
  */
-import {reqRegister, reqLogin , reqUpdate} from '../api';
-import {AUTH_SUCCESS, AUTH_ERROR} from './action-types';
+import {reqRegister, reqLogin , reqUpdate,reqGetUserInfo,reqGetUserList} from '../api';
+import {AUTH_SUCCESS, AUTH_ERROR,RESET_USERINFO,UPDATE_USERINFO,RESET_USERLIST,UPDATE_USERLIST} from './action-types';
 //定义同步action creator
 export const authSuccess = data => ({type: AUTH_SUCCESS, data});
 export const authError = data => ({type: AUTH_ERROR, data});
+
+export const upDateUserInfo = data => ({type:UPDATE_USERINFO,data});
+export const resetUserInfo = data => ({type:RESET_USERINFO,data});
+
+export const upDateUserList = data => ({type:UPDATE_USERLIST,data});
+export const resetUserList = () => ({type:RESET_USERLIST});
 
 //定义异步action creator
 export const register = ({username, password, rePassword, type}) => {
@@ -99,5 +105,39 @@ export const update = ({header,post,company,salary,info,type}) => {
       .catch(err => {
         dispatch(authError({errMsg:'网络不好请重试'}))
       })
+  }
+}
+
+export const getUserInfo = () => {
+
+  return dispatch => {
+    reqGetUserInfo()
+      .then(({data}) => {
+        if(data.code === 0){
+          dispatch(upDateUserInfo(data.data))
+        }else{
+          dispatch(resetUserInfo({errMsg:data.msg}))
+        }
+      })
+      .catch(err => {
+        dispatch(resetUserInfo({errMsg:'网络出问题了请刷新试试'}))
+      })
+  }
+}
+
+export const getUserList = type => {
+  return dispatch => {
+    reqGetUserList(type)
+      .then(({data}) => {
+        if(data.code === 0){
+          dispatch(upDateUserList(data.data))
+        }else{
+          dispatch(resetUserList())
+        }
+      })
+      .catch(err => {
+        dispatch(resetUserList())
+      })
+
   }
 }

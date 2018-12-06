@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Card, WingBlank, WhiteSpace } from 'antd-mobile';
 import PropTypes from 'prop-types';
-class Laoban extends Component {
+class Dashen extends Component {
   static propTypes = {
     userList:PropTypes.array.isrequired,
     getUserList:PropTypes.func.isrequired,
@@ -10,7 +10,7 @@ class Laoban extends Component {
   componentDidMount(){
     //没有数据就发送请求，有就不发送
     if(!this.props.userList.length){
-      this.props.getUserList('dashen');
+      this.props.getUserList('laoban');
     }
   }
   render () {
@@ -30,8 +30,8 @@ class Laoban extends Component {
                     />
                     <Card.Body>
                       <div>职位：{item.post}</div>
-                      <div>公司：xxx</div>
-                      <div>薪资：xxx</div>
+                      <div>公司：{item.company}</div>
+                      <div>薪资：{item.salary}</div>
                       <div>描述：{item.info}</div>
                     </Card.Body>
                   </Card>
@@ -47,4 +47,4 @@ class Laoban extends Component {
   }
 }
 
-export default Laoban;
+export default Dashen;
