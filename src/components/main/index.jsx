@@ -8,15 +8,17 @@ import LaobanInfo from '../../containers/laoban-info';
 import DashenInfo from '../../containers/dashen-info';
 import Laoban from '../../containers/laoban';
 import Dashen from '../../containers/dashen';
-import Message from '../message';
+import Message from '../../containers/message';
 import Personal from '../../containers/personal';
 import Footer from '../footer';
-
+import Chat from '../../containers/chat';
 import {NavBar,Icon} from 'antd-mobile';
 class Main extends Component {
   static propTypes = {
     user:PropTypes.object.isRequired,
-    getUserInfo:PropTypes.func.isRequired
+    getUserInfo:PropTypes.func.isRequired,
+    getChatList:PropTypes.func.isRequired,
+    // chatMessages:PropTypes.object.isRequired
   };
   NavList = [
     {path:"/laoban",titel:'大神列表',icon:'laoban',text:'大神'},
@@ -24,6 +26,11 @@ class Main extends Component {
     {path:"/message",titel:'消息列表',icon:'message',text:'消息'},
     {path:"/personal",titel:'个人中心',icon:'personal',text:'个人'},
   ];
+  //在访问message组件之前就需要亲求历史消息保存在redux中
+  componentDidMount () {
+    //请求所有关于当前用户的所有消息
+  this.props.getChatList()
+  }
   render () {
     //1判断有没有cookie，没有直接取登陆界面
     const userid  =Cookies.get('userid');
@@ -58,6 +65,7 @@ class Main extends Component {
           <Route path="/dashen" component={Dashen}/>
           <Route path="/message" component={Message}/>
           <Route path="/personal" component={Personal}/>
+          <Route path="/chat/:id" component={Chat}/>
         </div>
         {currNav ? <Footer NavList={this.NavList} type={this.props.user.type}/> : null}
       </div>

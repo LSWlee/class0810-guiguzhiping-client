@@ -3,7 +3,16 @@
  */
 import {combineReducers} from 'redux';
 
-import {AUTH_SUCCESS, AUTH_ERROR,UPDATE_USERINFO,RESET_USERINFO,UPDATE_USERLIST,RESET_USERLIST} from './action-types';
+import {AUTH_SUCCESS,
+  AUTH_ERROR,
+  UPDATE_USERINFO,
+  RESET_USERINFO,
+  UPDATE_USERLIST,
+  RESET_USERLIST,
+  GET_CHAT_MESSAGES,
+  RESET_CHAT_MESSAGES,
+  UPDATE_CHAT_MESSAGES
+} from './action-types';
 
 //初始化状态的值
 const initUserState = {
@@ -46,6 +55,26 @@ function userList(previousState = initUserListState, action) {
   }
 }
 
+const initChatMessages = {
+  users:{},
+  chatMsgs:[]
+};
+function chatMessages(previousState = initChatMessages,action) {
+  switch (action.type){
+    case GET_CHAT_MESSAGES:
+      return action.data;
+    case RESET_CHAT_MESSAGES:
+      return initChatMessages;
+    case UPDATE_CHAT_MESSAGES:
+      return {
+        users:previousState.users,
+        chatMsgs:[...previousState.chatMsgs,action.data]
+      }
+    default :
+        return previousState;
+  }
+}
+
 function getRedirectPath(type, header) {
   let path = '';
   
@@ -66,5 +95,6 @@ function getRedirectPath(type, header) {
 // {xxx: function xxx() {}, yyy: function yyy() {}}
 export default combineReducers({
   user,
-  userList
+  userList,
+  chatMessages
 })

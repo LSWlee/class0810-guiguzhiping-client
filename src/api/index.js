@@ -21,3 +21,6 @@ export const reqUpdate = data => ajax(`${prefix}/update`, data, 'POST');
 export const reqGetUserInfo = () => ajax(`${prefix}/user`);
 //定义获取用户列表的请求
 export const reqGetUserList = type => ajax(`${prefix}/userlist`,{type});
+
+//定义发送用户消息列表的请求
+export const reqGetChatList = () => ajax(`${prefix}/msglist`);

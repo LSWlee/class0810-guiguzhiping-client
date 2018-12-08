@@ -3,8 +3,8 @@ import { Card, WingBlank, WhiteSpace } from 'antd-mobile';
 import PropTypes from 'prop-types';
 class Dashen extends Component {
   static propTypes = {
-    userList:PropTypes.array.isrequired,
-    getUserList:PropTypes.func.isrequired,
+    userList:PropTypes.array.isRequired,
+    getUserList:PropTypes.func.isRequired,
   }
   //发送请求获取用户列表
   componentDidMount(){
@@ -12,6 +12,9 @@ class Dashen extends Component {
     if(!this.props.userList.length){
       this.props.getUserList('laoban');
     }
+  }
+  goChat = id => {
+    this.props.history.push(`/chat/${id}`)
   }
   render () {
     const userList = this.props.userList.filter(item => item.header);
@@ -22,7 +25,7 @@ class Dashen extends Component {
           {
             userList.map((item,index) => {
               return (
-                <div key={index}>
+                <div key={index}  onClick={this.goChat.bind(null , item._id)}>
                   <Card>
                     <Card.Header
                       thumb={require(`../../assets/images/头像${+item.header+1}.png`)}

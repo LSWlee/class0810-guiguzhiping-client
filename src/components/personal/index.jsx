@@ -35,7 +35,7 @@ class Personal extends Component {
       <div>
         <Result
           img={myImg('https://gw.alipayobjects.com/zos/rmsportal/pdFARIqkrKEGVVEwotFe.svg')}
-          title="laoban001"
+          title={username}
           message={<div>goode</div>}
         />
         <List renderHeader={() => '相关信息'} className="my-list">
